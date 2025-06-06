@@ -1,0 +1,13 @@
+# Arquivos de objeto compilados
+*.o
+*.obj
+
+# Executáveis
+*.exe
+*.out
+a.out
+
+# Bibliotecas estáticas e dinâmicas
+*.a
+*.so
+*.dll
