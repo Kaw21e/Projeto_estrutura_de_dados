@@ -9,11 +9,17 @@ void simular(int tempo) {
     sleep(tempo);
 }
 
+
+
 int main() {
     int Vez = 0;
     TadConfigs *tad_configs;
     // Criar TAD e abrir arquivo
-
+    tipoFila *fila = criarFila(); // Inicializa a fila
+    if (fila == NULL) {
+        printf("Erro ao criar fila\n");
+        return 1;
+    }
     tad_configs = configs_inicializar();
     if (!tad_configs) {
       printf("Erro ao criar TAD\n");
@@ -27,29 +33,41 @@ int main() {
     configs_mostrar(tad_configs);
 
     while(tad_configs->configs.status != TERMINAR) {
+        int addPaciente = 0;
+        Paciente *paciente;
+        while ((paciente = ler_paciente_por_numero(Vez)) =! NULL) {
+            inserirFila(fila, paciente);
+            Vez++; //se paciente = null, vez - 1 é o ultimo paciente da lista (fila.dat)
+        }
+
+        
         sleep(1);
         switch (tad_configs->configs.status) 
         {
-            
+
         case SIMULAR:
             simular(2);
-            Paciente *paciente = ler_paciente_por_numero(Vez);
-            if (paciente != NULL) {
-                Vez++;
-                printf("Paciente %d: %s, Idade: %d, Prioridade: %d\n", paciente->numero, paciente->nome, paciente->idade, paciente->prioridade);
-                free(paciente);
+            int simulacao = imprimir_e_remover_no(fila);
+            if (simulacao == 1) {       
+                printf("Fila vazia!\n");
             } else {
-                printf("Nenhum paciente na fila.\n");
+                printf("Paciente simulado com sucesso!\n");
             }
             break;
-
         case AGUARDAR:
             printf("Aguardando...\n");
             break;
 
         case REINICIAR_FILA:
             printf("Reiniciando fila...\n");
-            reiniciar_fila();
+            reiniciar_fila();   
+            destruir_fila(fila);
+            fila = criarFila();
+            if (fila == NULL) {
+                printf("Erro ao reiniciar fila\n");
+                return 1;
+            }
+            printf("Fila reiniciada com sucesso!\n");
             Vez = 0; // Reinicia o contador de pacientes
             configs_atualizar(tad_configs, AGUARDAR, 1);
             break;

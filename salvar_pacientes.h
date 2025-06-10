@@ -27,9 +27,6 @@ Paciente *criar_paciente(int numero, char nome[], int idade, PrioridadePaciente 
 // Função para salvar pacientes em arquivo
 int salvar_pacientes(Paciente *paciente);
 
-// Função para ler pacientes de arquivo
-int ler_pacientes();
-
 FILE *fila_abrir();
 
 Paciente *ler_paciente_por_numero(int numero);

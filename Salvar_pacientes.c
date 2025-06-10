@@ -41,15 +41,6 @@ FILE *fila_abrir() {
         arquivo = fopen(FILA_FILE, "rb+"); // apenas abre o arquivo
     } else {
         arquivo = fopen(FILA_FILE, "wb+"); // cria arquivo novo
-      /*  Paciente *paciente = malloc(sizeof(Paciente));
-        paciente->numero = 0; // inicializa o TAD com dados padrão
-        strcpy(paciente->nome, ""); // nome vazio
-        paciente->idade = 0; // idade padrão
-        paciente->prioridade = 1; // inicializa o TAD com dados padrão
-        if (paciente && arquivo) {
-          fwrite(paciente, sizeof(Paciente), 1, arquivo);
-        }
-        free(paciente); // Libera a memória alocada para o paciente */
     }
     return arquivo;
 }

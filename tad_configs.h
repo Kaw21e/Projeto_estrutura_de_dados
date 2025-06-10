@@ -22,7 +22,7 @@ typedef struct tad_configs {
 } TadConfigs;
 
 typedef enum {
-    NENHUMa,
+    NENHUMa,        
     BAIXA,
     MEDIA,
     ALTA

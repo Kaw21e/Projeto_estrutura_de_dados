@@ -8,9 +8,9 @@
 
 //definindo structs de fila e nó
 
-typedef struct No {
+typedef struct no {
    Paciente dados_paciente; // Dados do paciente
-   No *proximo;
+   struct no *proximo; // Correção: Usar "struct no" aqui
 } No;
 
 typedef struct tipoFila {
@@ -33,9 +33,11 @@ tipoFila *criarFila();
 
 No *inserirFila(tipoFila *fila, Paciente *paciente);
 
-void imprimir_e_remover_no(tipoFila *fila);
+int imprimir_e_remover_no(tipoFila *fila);
 
-void destruir_fila(tipoFila *fila); 
+void destruir_fila(tipoFila *fila);
+
+No* adicionarPacienteFila_Vez(tipoFila *fila_ptr, int vez_paciente);
 
 
 

@@ -5,7 +5,6 @@
 #include "salvar_pacientes.h"
 
 
-
 tipoFila *criarFila(){ 
    tipoFila *fila = (tipoFila *) malloc(sizeof(tipoFila));
    if (fila == NULL){
@@ -38,14 +37,14 @@ No *inserirFila(tipoFila *fila, Paciente *paciente){
    return novo;
 }
 
-void imprimir_e_remover_no(tipoFila *fila){
+int imprimir_e_remover_no(tipoFila *fila){
 	if (fila == NULL){
         printf("Fila não inicializada!\n");
-        return;
+        return -1;
     }
     if(fila->primeiro == NULL){
 		printf("Lista vazia!\n");
-		return;
+		return 1;
 	}
 	No *atual = fila->primeiro;
 	printf("Nome do Paciente %d: %s\nIdade:%d\nPrioridade:%d\n", atual->dados_paciente.numero, atual->dados_paciente.nome, atual->dados_paciente.idade, atual->dados_paciente.prioridade);
@@ -56,7 +55,8 @@ void imprimir_e_remover_no(tipoFila *fila){
         fila->primeiro = atual->proximo;
     }
     free(atual);
-	printf("\n");
+	printf("paciente removido com sucesso!\n");
+    return 0; 
 }
 
 void destruir_fila(tipoFila *fila) {
@@ -77,5 +77,20 @@ void destruir_fila(tipoFila *fila) {
 	fila->primeiro = NULL;
 	fila->ultimo = NULL;
 }
+
+
+No* adicionarPacienteFila_Vez(tipoFila *fila_ptr, int vez_paciente) {
+    Paciente *dados_paciente_lido;
+    while ((dados_paciente_lido = ler_paciente_por_numero(vez_paciente)) != NULL) {
+       No* no_inserido = inserirFila(&fila_ptr, dados_paciente_lido); 
+       if (no_inserido == NULL) {
+            free(dados_paciente_lido);
+            return fila_ptr; // Erro ao inserir na fila
+        }
+        free(dados_paciente_lido); 
+    }
+    return fila_ptr;
+}
+
 
 
