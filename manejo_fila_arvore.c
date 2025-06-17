@@ -51,7 +51,8 @@ int imprimir_e_remover_no(tipoFila *fila){
 		return 1;
 	}
 	No *atual = fila->primeiro;
-	printf("Nome do Paciente %d: %s\nIdade:%d\nPrioridade:%d\n", atual->dados_paciente.numero, atual->dados_paciente.nome, atual->dados_paciente.idade, atual->dados_paciente.prioridade);
+	printf("Nome do Paciente %d: %s\nIdade:%d\nMedico:%d\nPrioridade:%d\n", atual->dados_paciente.numero, atual->dados_paciente.nome, atual->dados_paciente.idade, atual->dados_paciente.medico, atual->dados_paciente.prioridade);
+    
     if(fila->ultimo == atual){
         fila->primeiro = NULL;
         fila->ultimo = NULL;
@@ -61,6 +62,20 @@ int imprimir_e_remover_no(tipoFila *fila){
     free(atual);
 	printf("paciente simulado removido com sucesso!\n");
     return 0; 
+}
+
+int imprimir_numero(tipoFila *fila){
+    if (fila == NULL){
+        printf("Fila não inicializada!\n");
+        return -1;
+    }
+    if(fila->primeiro == NULL){
+		printf("Lista vazia!\n");
+		return 1;
+	}
+	No *atual = fila->primeiro;
+	printf("Numero %d\n", atual->dados_paciente.numero);
+    return 0;
 }
 
 void destruir_fila(tipoFila *fila) {

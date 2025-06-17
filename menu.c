@@ -5,16 +5,20 @@
 #include "manejo_fila_arvore.h"
 
 int menu() {
-    printf("1. Aguardar\n2. Simular\n3. Terminar\n4. Reiniciar Fila\n5. Inserir Novo Paciente\n0. Sair\n");
+    printf("1. Aguardar\n2. Simular\n3. Terminar\n4. Reiniciar Fila\n5. Inserir Novo Paciente\n6. Imprimir relatorio de especialidades\n0. Sair\n");
     printf("Informe a opção desejada: ");
     int aux;
     scanf("%d", &aux);
     return aux;
 }
 int main() {
-  int Vez = 0;
+
+  //iniciando variáveis
+  int Vez = 1; // Vez é o contador de pacientes, usado para atribuir um número único a cada
   TadConfigs *tad_configs;
   int op;
+  int cardiologista = 0, oftalmologista = 0, alergista = 0, dermatologista = 0; // Especialidades médicas
+
   // Criar TAD e abrir arquivo
   tad_configs = configs_inicializar();
   if (!tad_configs) {
@@ -41,30 +45,62 @@ int main() {
               break;
           }
           case 4: {
+
               fila = reiniciar_fila();
               printf("Fila reiniciada com sucesso!\n");
-              Vez = 0; // Reinicia o contador de pacientes
-             // fila = fila_abrir(); // Reabre o arquivo de pacientes
+              Vez = 1; // Reinicia o contador de pacientes
               configs_atualizar(tad_configs, REINICIAR_FILA, 1);
               break;
+
           }
           case 5: {
+
             int idade, prioridade;
             char nome_paciente[100];
+            int medico;
+
             printf("Informe a idade do paciente: ");
             scanf("%d", &idade);
             printf("Informe o primeiro nome do paciente: ");
             scanf(" %s", nome_paciente);
             printf("Informe a prioridade do paciente do paciente:\n0. GESTANTE\n1. IDOSO\n2. PNE\n3. CRIANCA\n4. DOENCA_CRONICA\n5. DEMAIS\n");
             scanf("%d", &prioridade);
-            Paciente *paciente = criar_paciente(Vez, nome_paciente, idade, prioridade);
+            printf("iforme o número da especialidade do médico:\n0. Cardiologista\n1. Oftalmologista\n2. Alergista\n3. Dermatologista\n");
+            scanf("%d", &medico);
+
+            switch(medico) {
+            case 0: cardiologista++; break;
+            case 1: oftalmologista++; break;
+            case 2: alergista++; break;
+            case 3: dermatologista++; break;
+            default: {
+                printf("Especialidade inválida!\n");
+            }
+            }
+
+            Paciente *paciente = criar_paciente(Vez, nome_paciente, idade, prioridade, medico);
+            if(paciente == NULL) {
+                printf("Erro ao criar paciente!\n");
+                break;
+            }
+
             salvar_pacientes(paciente);
+            printf("Paciente %s numero %d adicionado com sucesso!\n", nome_paciente, Vez);
+
             Vez++;
-            printf("Paciente %s adicionado com sucesso!\n", nome_paciente);
             break;
+          }
+          case 6: {
+              printf("\nRelatório de Especialidades:\n");
+              printf("Cardiologista: %d\n", cardiologista);
+              printf("Oftalmologista: %d\n", oftalmologista);
+              printf("Alergista: %d\n", alergista);
+              printf("Dermatologista: %d\n", dermatologista);
+              break;
           }
           case 0: {
               configs_destruir(tad_configs);
+              fechar_fila(fila);
               printf("Até a próxima!\n");
               break;
           }

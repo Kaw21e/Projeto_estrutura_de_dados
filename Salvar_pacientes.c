@@ -7,7 +7,7 @@
 #define FILA_FILE "../fila.dat"
 
 
-Paciente *criar_paciente(int numero, char nome[], int idade, PrioridadePaciente prioridade){
+Paciente *criar_paciente(int numero, char nome[], int idade, PrioridadePaciente prioridade, especialidade medico){ //função para usar no menu.c
     Paciente *paciente = malloc(sizeof(Paciente));
     if (!paciente) {
         return NULL; // Erro ao alocar memória
@@ -15,12 +15,13 @@ Paciente *criar_paciente(int numero, char nome[], int idade, PrioridadePaciente 
     paciente->numero = numero;
     strcpy(paciente->nome, nome);
     paciente->idade = idade;
+    paciente->medico = medico;
     paciente->prioridade = prioridade;
 
     return paciente;
 }
 
-int salvar_pacientes(Paciente *paciente){
+int salvar_pacientes(Paciente *paciente){ //função para usar no menu.c
     FILE *arquivo = fila_abrir();
     if (!arquivo) {
         return -1; // Erro ao abrir o arquivo
@@ -45,7 +46,7 @@ FILE *fila_abrir() {
     return arquivo;
 }
 
-Paciente *ler_paciente_por_numero(int numero) {
+Paciente *ler_paciente_por_numero(int numero) { //função para usar no simulacao.c
     FILE *arquivo = fila_abrir();
     if (!arquivo) {
         return NULL; // Erro ao abrir o arquivo
@@ -76,4 +77,10 @@ FILE *reiniciar_fila() {
         return NULL; // Erro ao abrir o arquivo
     }
     return arquivo;
+}
+
+void fechar_fila(FILE *arquivo) {
+    if (arquivo) {
+        fclose(arquivo); // Fecha o arquivo
+    }
 }
