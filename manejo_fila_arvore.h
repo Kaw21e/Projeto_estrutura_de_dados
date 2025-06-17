@@ -37,8 +37,9 @@ int imprimir_e_remover_no(tipoFila *fila);
 
 void destruir_fila(tipoFila *fila);
 
-No* adicionarPacienteFila_Vez(tipoFila *fila_ptr, int vez_paciente);
+// Funções para manipulação da ABB
 
+Arvore *Criar_Arvore(); //cria todas as prioridades
 
 
 #endif // MANEJO_FILA_ARVORE_H

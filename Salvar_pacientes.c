@@ -60,7 +60,8 @@ Paciente *ler_paciente_por_numero(int numero) {
         fclose(arquivo);
         return NULL; // Erro de memória
     }
-    size_t debug = fread(paciente, sizeof(Paciente), 1, arquivo);
+    int debug;
+    debug = fread(paciente, sizeof(Paciente), 1, arquivo);
     fclose(arquivo);
     if (debug != 1) {
         free(paciente);

@@ -5,9 +5,12 @@
 #include "salvar_pacientes.h"
 
 
+// Funções para manipulação das filas
+
 tipoFila *criarFila(){ 
    tipoFila *fila = (tipoFila *) malloc(sizeof(tipoFila));
    if (fila == NULL){
+    printf("Erro ao criar fila!\n");
     return NULL;
    }
    fila->primeiro = NULL;
@@ -22,7 +25,8 @@ No *inserirFila(tipoFila *fila, Paciente *paciente){
     }
    No *novo = (No *) malloc(sizeof(No));
    if (novo == NULL){
-   	return NULL;
+   	printf("Erro ao criar nó!\n");
+    return NULL;
    }
    novo->dados_paciente = *paciente;
    novo->proximo = NULL;
@@ -55,7 +59,7 @@ int imprimir_e_remover_no(tipoFila *fila){
         fila->primeiro = atual->proximo;
     }
     free(atual);
-	printf("paciente removido com sucesso!\n");
+	printf("paciente simulado removido com sucesso!\n");
     return 0; 
 }
 
@@ -65,7 +69,8 @@ void destruir_fila(tipoFila *fila) {
         return;
     }
 	if(fila->primeiro == NULL){
-		return;
+		free(fila);
+        return;
 	}
 	No *atual = fila->primeiro;
 	No *anterior;
@@ -76,21 +81,84 @@ void destruir_fila(tipoFila *fila) {
 	}	
 	fila->primeiro = NULL;
 	fila->ultimo = NULL;
+    free(fila);
+    printf("Fila destruída com sucesso!\n");
 }
 
 
-No* adicionarPacienteFila_Vez(tipoFila *fila_ptr, int vez_paciente) {
-    Paciente *dados_paciente_lido;
-    while ((dados_paciente_lido = ler_paciente_por_numero(vez_paciente)) != NULL) {
-       No* no_inserido = inserirFila(&fila_ptr, dados_paciente_lido); 
-       if (no_inserido == NULL) {
-            free(dados_paciente_lido);
-            return fila_ptr; // Erro ao inserir na fila
-        }
-        free(dados_paciente_lido); 
+// Função para manipulação da arvore
+
+Arvore *Criar_Arvore(){
+    
+    //criando raiz
+
+    Arvore *raizP3 = (Arvore *) malloc(sizeof(Arvore));
+    if (raizP3 == NULL){ //verifica erros
+        printf("Erro ao criar raizP3!\n");
+        return NULL;
     }
-    return fila_ptr;
+    raizP3->esquerda = NULL;
+    raizP3->direita = NULL;
+    raizP3->prioridade = 3;
+    raizP3->fila = NULL;
+    
+    //criando filhos raiz
+
+    Arvore *filhoP4 = (Arvore *) malloc(sizeof(Arvore));
+    if(filhoP4 == NULL){ //verifica erros e libera memória
+        printf("Erro ao criar filhoP4!\n");
+        free(raizP3);
+        return NULL;
+    }
+    filhoP4->direita = NULL;
+    filhoP4->esquerda = NULL;
+    raizP3->direita = filhoP4;
+    filhoP4->prioridade = 4;
+    filhoP4->fila = NULL; 
+
+    Arvore *filhoP1 = (Arvore *) malloc(sizeof(Arvore));
+    if(filhoP1 == NULL){ //verifica erros e libera memória
+        printf("Erro ao criar filhoP1!\n");
+        free(raizP3);
+        free(filhoP4);
+        return NULL;
+    }
+    filhoP1->direita = NULL;
+    filhoP1->esquerda = NULL;
+    raizP3->esquerda = filhoP1;
+    filhoP1->prioridade = 1;
+    filhoP1->fila = NULL;
+
+    //criando filhos dos filhos
+    
+    Arvore *folhaP2 = (Arvore *) malloc(sizeof(Arvore));
+    if (folhaP2 == NULL){ //verifica erros e libera memória
+        printf("Erro ao criar folhaP2!\n");
+        free(raizP3);
+        free(filhoP4);
+        free(filhoP1);
+        return NULL;
+    }
+    folhaP2->esquerda = NULL;
+    folhaP2->direita = NULL;
+    filhoP1->direita = folhaP2;
+    folhaP2->prioridade = 2;
+    folhaP2->fila = NULL;
+
+    Arvore *folhaP5 = (Arvore *) malloc(sizeof(Arvore));
+    if(folhaP5 == NULL){ //verifica erros e libera memória
+        printf("Erro ao criar folhaP5!\n");
+        free(raizP3);
+        free(filhoP4);
+        free(filhoP1);
+        free(folhaP2);
+        return NULL;
+    }
+    folhaP5->esquerda = NULL; 
+    folhaP5->direita = NULL;
+    folhaP5->fila = NULL;
+    filhoP4->direita = folhaP5;
+    folhaP5->prioridade = 5; 
+    
+    return raizP3;
 }
-
-
-

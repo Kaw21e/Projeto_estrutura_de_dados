@@ -21,19 +21,6 @@ typedef struct tad_configs {
   Configs configs;
 } TadConfigs;
 
-typedef enum {
-    NENHUMa,        
-    BAIXA,
-    MEDIA,
-    ALTA
-} PrioridadeItem;
-
-typedef struct item {
-    int id;
-    int tempo_processamento;
-    PrioridadeItem prioridade;
-    int finalizado;
-} Item;
 
 FILE *configs_abrir();
 TadConfigs *configs_inicializar();

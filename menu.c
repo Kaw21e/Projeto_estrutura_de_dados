@@ -55,7 +55,7 @@ int main() {
             scanf("%d", &idade);
             printf("Informe o primeiro nome do paciente: ");
             scanf(" %s", nome_paciente);
-            printf("Informe a prioridade do paciente do paciente:\n1. GESTANTE\n2. IDOSO\n3. PNE\n4. CRIANCA\n5. DOENCA_CRONICA\n6. DEMAIS\n");
+            printf("Informe a prioridade do paciente do paciente:\n0. GESTANTE\n1. IDOSO\n2. PNE\n3. CRIANCA\n4. DOENCA_CRONICA\n5. DEMAIS\n");
             scanf("%d", &prioridade);
             Paciente *paciente = criar_paciente(Vez, nome_paciente, idade, prioridade);
             salvar_pacientes(paciente);
