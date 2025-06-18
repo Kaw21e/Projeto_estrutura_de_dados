@@ -29,8 +29,16 @@ int main() {
   // Criar arquivo de pacientes e abrir fila
   FILE *fila = fila_abrir();
 
+  //reiniciar fila
+  fila = reiniciar_fila();
+
   do {
       op = menu();
+      if (op < 0 || op > 6) {
+          printf("Opção inválida!\n");
+          continue;
+      }
+
       switch(op) {
           case 1: {
               configs_atualizar(tad_configs, AGUARDAR, 1);
@@ -59,14 +67,23 @@ int main() {
             char nome_paciente[100];
             int medico;
 
+            printf("=======================\n\n");
             printf("Informe a idade do paciente: ");
             scanf("%d", &idade);
-            printf("Informe o primeiro nome do paciente: ");
-            scanf(" %s", nome_paciente);
+            printf("Informe o nome do paciente: ");
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF); // Limpa buffer antes do fgets
+            fgets(nome_paciente, sizeof(nome_paciente), stdin);
             printf("Informe a prioridade do paciente do paciente:\n0. GESTANTE\n1. IDOSO\n2. PNE\n3. CRIANCA\n4. DOENCA_CRONICA\n5. DEMAIS\n");
             scanf("%d", &prioridade);
-            printf("iforme o número da especialidade do médico:\n0. Cardiologista\n1. Oftalmologista\n2. Alergista\n3. Dermatologista\n");
-            scanf("%d", &medico);
+            do {
+                printf("Informe o número da especialidade do médico:\n0. Cardiologista\n1. Oftalmologista\n2. Alergista\n3. Dermatologista\n");
+                scanf("%d", &medico);
+                if (medico < 0 || medico > 3) {
+                    printf("Especialidade inválida!\n");
+                }
+            } while (medico < 0 || medico > 3);
+            printf("\n=======================\n\n");
 
             switch(medico) {
             case 0: cardiologista++; break;
@@ -75,6 +92,7 @@ int main() {
             case 3: dermatologista++; break;
             default: {
                 printf("Especialidade inválida!\n");
+                break;
             }
             }
 
@@ -92,10 +110,12 @@ int main() {
           }
           case 6: {
               printf("\nRelatório de Especialidades:\n");
+              printf("\n=======================\n\n");
               printf("Cardiologista: %d\n", cardiologista);
               printf("Oftalmologista: %d\n", oftalmologista);
               printf("Alergista: %d\n", alergista);
               printf("Dermatologista: %d\n", dermatologista);
+              printf("\n=======================\n\n");
               break;
           }
           case 0: {
@@ -106,6 +126,7 @@ int main() {
           }
           default: {
               printf("Opção inválida!\n");
+              break;
           }
       }
   } while (op != 0);

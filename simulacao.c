@@ -105,7 +105,7 @@ int main() {
         case SIMULAR:
             int simulacao;
             simular(2);
-
+            printf("\n=======================\n\n");
             if(filaP1 != NULL || filaP2 != NULL || filaP3 != NULL || filaP4 != NULL || filaP5 != NULL) {
                 if(filaP1 != NULL){
                     imprimir_e_remover_no(filaP1);
@@ -168,6 +168,7 @@ int main() {
             } else {
                 printf("Nenhum paciente na fila sem prioridade!\n");
             }
+            printf("\n=======================\n\n");
             break;
         case AGUARDAR:
             printf("Aguardando...\n");
