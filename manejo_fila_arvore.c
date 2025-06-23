@@ -148,73 +148,73 @@ Arvore *Criar_Arvore(){
     
     //criando raiz
 
-    Arvore *raizP3 = (Arvore *) malloc(sizeof(Arvore));
-    if (raizP3 == NULL){ //verifica erros
-        printf("Erro ao criar raizP3!\n");
+    Arvore *raizP2 = (Arvore *) malloc(sizeof(Arvore));
+    if (raizP2 == NULL){ //verifica erros
+        printf("Erro ao criar raizP2!\n");
         return NULL;
     }
-    raizP3->esquerda = NULL;
-    raizP3->direita = NULL;
-    raizP3->prioridade = 3;
-    raizP3->fila = NULL;
+    raizP2->esquerda = NULL;
+    raizP2->direita = NULL;
+    raizP2->prioridade = 2;
+    raizP2->fila = NULL;
     
     //criando filhos raiz
 
-    Arvore *filhoP4 = (Arvore *) malloc(sizeof(Arvore));
-    if(filhoP4 == NULL){ //verifica erros e libera memória
-        printf("Erro ao criar filhoP4!\n");
-        free(raizP3);
+    Arvore *filhoP3 = (Arvore *) malloc(sizeof(Arvore));
+    if(filhoP3 == NULL){ //verifica erros e libera memória
+        printf("Erro ao criar filhoP3!\n");
+        free(raizP2);
         return NULL;
     }
-    filhoP4->direita = NULL;
-    filhoP4->esquerda = NULL;
-    raizP3->direita = filhoP4;
-    filhoP4->prioridade = 4;
-    filhoP4->fila = NULL; 
+    filhoP3->direita = NULL;
+    filhoP3->esquerda = NULL;
+    raizP2->direita = filhoP3;
+    filhoP3->prioridade = 3;
+    filhoP3->fila = NULL; 
 
-    Arvore *filhoP1 = (Arvore *) malloc(sizeof(Arvore));
-    if(filhoP1 == NULL){ //verifica erros e libera memória
-        printf("Erro ao criar filhoP1!\n");
-        free(raizP3);
-        free(filhoP4);
+    Arvore *filhoP0 = (Arvore *) malloc(sizeof(Arvore));
+    if(filhoP0 == NULL){ //verifica erros e libera memória
+        printf("Erro ao criar filhoP0!\n");
+        free(raizP2);
+        free(filhoP3);
         return NULL;
     }
-    filhoP1->direita = NULL;
-    filhoP1->esquerda = NULL;
-    raizP3->esquerda = filhoP1;
-    filhoP1->prioridade = 1;
-    filhoP1->fila = NULL;
+    filhoP0->direita = NULL;
+    filhoP0->esquerda = NULL;
+    raizP2->esquerda = filhoP0;
+    filhoP0->prioridade = 0;
+    filhoP0->fila = NULL;
 
     //criando filhos dos filhos
     
-    Arvore *folhaP2 = (Arvore *) malloc(sizeof(Arvore));
-    if (folhaP2 == NULL){ //verifica erros e libera memória
-        printf("Erro ao criar folhaP2!\n");
-        free(raizP3);
-        free(filhoP4);
-        free(filhoP1);
+    Arvore *folhaP1 = (Arvore *) malloc(sizeof(Arvore));
+    if (folhaP1 == NULL){ //verifica erros e libera memória
+        printf("Erro ao criar folhaP1!\n");
+        free(raizP2);
+        free(filhoP3);
+        free(filhoP0);
         return NULL;
     }
-    folhaP2->esquerda = NULL;
-    folhaP2->direita = NULL;
-    filhoP1->direita = folhaP2;
-    folhaP2->prioridade = 2;
-    folhaP2->fila = NULL;
+    folhaP1->esquerda = NULL;
+    folhaP1->direita = NULL;
+    filhoP0->direita = folhaP1;
+    folhaP1->prioridade = 1;
+    folhaP1->fila = NULL;
 
-    Arvore *folhaP5 = (Arvore *) malloc(sizeof(Arvore));
-    if(folhaP5 == NULL){ //verifica erros e libera memória
-        printf("Erro ao criar folhaP5!\n");
-        free(raizP3);
-        free(filhoP4);
-        free(filhoP1);
-        free(folhaP2);
+    Arvore *folhaP4 = (Arvore *) malloc(sizeof(Arvore));
+    if(folhaP4 == NULL){ //verifica erros e libera memória
+        printf("Erro ao criar folhaP4!\n");
+        free(raizP2);
+        free(filhoP3);
+        free(filhoP0);
+        free(folhaP1);
         return NULL;
     }
-    folhaP5->esquerda = NULL; 
-    folhaP5->direita = NULL;
-    folhaP5->fila = NULL;
-    filhoP4->direita = folhaP5;
-    folhaP5->prioridade = 5; 
+    folhaP4->esquerda = NULL; 
+    folhaP4->direita = NULL;
+    folhaP4->fila = NULL;
+    filhoP3->direita = folhaP4;
+    folhaP4->prioridade = 4; 
     
-    return raizP3;
+    return raizP2;
 }

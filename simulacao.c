@@ -19,11 +19,11 @@ int main() {
         printf("Erro ao criar árvore\n");
         return 1;
     }
-    tipoFila *filaP1 = raiz->esquerda->fila;
-    tipoFila *filaP2 = raiz->esquerda->direita->fila;
-    tipoFila *filaP3 = raiz->fila;
-    tipoFila *filaP4 = raiz->direita->fila;
-    tipoFila *filaP5 = raiz->direita->direita->fila;
+    tipoFila *filaP0 = raiz->esquerda->fila;
+    tipoFila *filaP1 = raiz->esquerda->direita->fila;
+    tipoFila *filaP2 = raiz->fila;
+    tipoFila *filaP3 = raiz->direita->fila;
+    tipoFila *filaP4 = raiz->direita->direita->fila;
 
     tipoFila *fila = NULL; // Fila para pacientes com prioridade 6 (DEMAIS)
 
@@ -53,33 +53,24 @@ int main() {
             }
 
             else if (paciente->prioridade == DOENCA_CRONICA){ //prioridade 4
-                if(filaP5 == NULL){
-                    filaP5 = criarFila();
-                    inserirFila(filaP5, paciente);
-                }else{
-                inserirFila(filaP5, paciente); 
-                }
-            }
-
-            else if (paciente->prioridade == CRIANCA){ //prioridade 3
                 if(filaP4 == NULL){
                     filaP4 = criarFila();
                     inserirFila(filaP4, paciente);
                 }else{
-                inserirFila(filaP4, paciente);
+                inserirFila(filaP4, paciente); 
                 }
-            } 
+            }
 
-            else if (paciente->prioridade == PNE){ //prioridade 2
+            else if (paciente->prioridade == CRIANCA){ //prioridade 3
                 if(filaP3 == NULL){
                     filaP3 = criarFila();
                     inserirFila(filaP3, paciente);
                 }else{
                 inserirFila(filaP3, paciente);
                 }
-            }
+            } 
 
-            else if (paciente->prioridade == IDOSO){ //prioridade 1
+            else if (paciente->prioridade == PNE){ //prioridade 2
                 if(filaP2 == NULL){
                     filaP2 = criarFila();
                     inserirFila(filaP2, paciente);
@@ -88,12 +79,21 @@ int main() {
                 }
             }
 
-            else if (paciente->prioridade == GESTANTE){ //prioridade 0
+            else if (paciente->prioridade == IDOSO){ //prioridade 1
                 if(filaP1 == NULL){
                     filaP1 = criarFila();
                     inserirFila(filaP1, paciente);
                 }else{
                 inserirFila(filaP1, paciente);
+                }
+            }
+
+            else if (paciente->prioridade == GESTANTE){ //prioridade 0
+                if(filaP0 == NULL){
+                    filaP0 = criarFila();
+                    inserirFila(filaP0, paciente);
+                }else{
+                inserirFila(filaP0, paciente);
                 }
             }
             Vez++; //se paciente = null, vez - 1 é o ultimo paciente da lista (fila.dat)
@@ -106,8 +106,14 @@ int main() {
             int simulacao;
             simular(2);
             printf("\n=======================\n\n");
-            if(filaP1 != NULL || filaP2 != NULL || filaP3 != NULL || filaP4 != NULL || filaP5 != NULL) {
-                if(filaP1 != NULL){
+            if(filaP0 != NULL || filaP1 != NULL || filaP2 != NULL || filaP3 != NULL || filaP4 != NULL) {
+                if(filaP0 != NULL){
+                    imprimir_e_remover_no(filaP0);
+                    if (filaP0->primeiro == NULL) {
+                        destruir_fila(filaP0);
+                        filaP0 = NULL;
+                    }
+                } else if(filaP1 != NULL){
                     imprimir_e_remover_no(filaP1);
                     if (filaP1->primeiro == NULL) {
                         destruir_fila(filaP1);
@@ -131,12 +137,6 @@ int main() {
                         destruir_fila(filaP4);
                         filaP4 = NULL;
                     }
-                } else if(filaP5 != NULL){
-                    imprimir_e_remover_no(filaP5);
-                    if (filaP5->primeiro == NULL) {
-                        destruir_fila(filaP5);
-                        filaP5 = NULL;
-                    }
                 }
             } else if(fila != NULL) {
                 imprimir_e_remover_no(fila);
@@ -149,7 +149,9 @@ int main() {
 
             printf("\nProximo paciente com prioridade:");
             // para mostrar proximo paciente
-            if (filaP1 != NULL) { 
+            if (filaP0 != NULL) { 
+                imprimir_numero(filaP0);
+            } else if (filaP1 != NULL) {
                 imprimir_numero(filaP1);
             } else if (filaP2 != NULL) {
                 imprimir_numero(filaP2);
@@ -157,8 +159,6 @@ int main() {
                 imprimir_numero(filaP3);
             } else if (filaP4 != NULL) {
                 imprimir_numero(filaP4);
-            } else if (filaP5 != NULL) {
-                imprimir_numero(filaP5);
             } else{
                 printf("Nenhum!\n");
             }
@@ -178,7 +178,9 @@ int main() {
             printf("Reiniciando fila...\n");
             reiniciar_fila();   
             destruir_fila(fila);
-            fila == NULL;
+            fila = NULL;
+            destruir_fila(filaP0);
+            filaP0 = NULL;
             destruir_fila(filaP1);
             filaP1 = NULL;
             destruir_fila(filaP2);
@@ -187,8 +189,6 @@ int main() {
             filaP3 = NULL;
             destruir_fila(filaP4);
             filaP4 = NULL;
-            destruir_fila(filaP5);
-            filaP5 = NULL;
 
             printf("Fila reiniciada com sucesso!\n");
             Vez = 0; // Reinicia o contador de pacientes
