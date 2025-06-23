@@ -31,6 +31,7 @@ int main() {
 
   //reiniciar fila
   fila = reiniciar_fila();
+  configs_atualizar(tad_configs, REINICIAR_FILA, 1);
 
   do {
       op = menu();
@@ -68,21 +69,19 @@ int main() {
             int medico;
 
             printf("=======================\n\n");
-            printf("Informe a idade do paciente: ");
-            scanf("%d", &idade);
             printf("Informe o nome do paciente: ");
             int c;
             while ((c = getchar()) != '\n' && c != EOF); // Limpa buffer antes do fgets
             fgets(nome_paciente, sizeof(nome_paciente), stdin);
+            printf("Informe a idade do paciente: ");
+            scanf("%d", &idade);
+            while ((c = getchar()) != '\n' && c != EOF);
             printf("Informe a prioridade do paciente do paciente:\n0. GESTANTE\n1. IDOSO\n2. PNE\n3. CRIANCA\n4. DOENCA_CRONICA\n5. DEMAIS\n");
             scanf("%d", &prioridade);
-            do {
-                printf("Informe o número da especialidade do médico:\n0. Cardiologista\n1. Oftalmologista\n2. Alergista\n3. Dermatologista\n");
-                scanf("%d", &medico);
-                if (medico < 0 || medico > 3) {
-                    printf("Especialidade inválida!\n");
-                }
-            } while (medico < 0 || medico > 3);
+            while ((c = getchar()) != '\n' && c != EOF);
+            printf("Informe o número da especialidade do médico:\n0. Cardiologista\n1. Oftalmologista\n2. Alergista\n3. Dermatologista\n");
+            scanf("%d", &medico);
+            while ((c = getchar()) != '\n' && c != EOF);
             printf("\n=======================\n\n");
 
             switch(medico) {

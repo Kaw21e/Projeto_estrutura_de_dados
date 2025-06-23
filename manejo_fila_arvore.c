@@ -51,8 +51,49 @@ int imprimir_e_remover_no(tipoFila *fila){
 		return 1;
 	}
 	No *atual = fila->primeiro;
-	printf("Nome do Paciente %d: %s\nIdade:%d\nMedico:%d\nPrioridade:%d\n", atual->dados_paciente.numero, atual->dados_paciente.nome, atual->dados_paciente.idade, atual->dados_paciente.medico, atual->dados_paciente.prioridade);
-    
+	printf("Nome do Paciente %d: %s\nIdade:%d\nMedico:%d\n", atual->dados_paciente.numero, atual->dados_paciente.nome, atual->dados_paciente.idade, atual->dados_paciente.medico);
+
+    switch (atual->dados_paciente.medico){
+    case 0:
+        printf("Especialidade: cardiologista\n");
+        break;
+    case 1:
+        printf("Especialidade: oftalmologista\n");
+        break;
+    case 2:
+        printf("Especialidade: alergista\n");
+        break;
+    case 3:
+        printf("Especialidade: dermatologista\n");
+        break;
+    default:
+        printf("Especialidade desconhecida\n");
+        break;
+    }
+
+    switch(atual->dados_paciente.prioridade){
+    case 0:
+        printf("Prioridade: Gestante\n");
+        break;
+    case 1:
+        printf("Prioridade: Idoso\n");
+        break;
+    case 2:
+        printf("Prioridade: PNE\n");
+        break;
+    case 3:
+        printf("Prioridade: Crianca\n");
+        break;
+    case 4:
+        printf("Prioridade: Doenca Cronica\n");
+        break;
+    case 5:
+        printf("Prioridade: DEMAIS\n");
+        break;
+    default:
+        printf("Prioridade desconhecida\n");
+        break;
+    }
     if(fila->ultimo == atual){
         fila->primeiro = NULL;
         fila->ultimo = NULL;
